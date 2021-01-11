@@ -1,0 +1,45 @@
+{
+  "name": "sls-appsync-test",
+  "version": "1.0.0",
+  "description": "Serverless aws-nodejs-typescript template",
+  "main": "servlerss.ts",
+  "scripts": {
+    "sls:setup": "sls dynamodb install",
+    "start": "sls offline start",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "start-server": "yarn start",
+    "ci": "start-server-and-test start-server http://localhost:20002 test"
+  },
+  "dependencies": {
+    "@middy/core": "^1.5.0",
+    "@middy/http-json-body-parser": "^1.5.0",
+    "graphql-request": "^3.4.0",
+    "source-map-support": "^0.5.19"
+  },
+  "devDependencies": {
+    "@serverless/typescript": "^2.16.0",
+    "@types/aws-lambda": "^8.10.64",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.6",
+    "fork-ts-checker-webpack-plugin": "^6.0.0",
+    "jest": "^26.6.3",
+    "js-yaml": "^4.0.0",
+    "json-schema-to-ts": "^1.4.1",
+    "serverless": "^2.16.0",
+    "serverless-appsync-plugin": "^1.6.0",
+    "serverless-appsync-simulator": "^0.11.0",
+    "serverless-dynamodb-local": "^0.2.39",
+    "serverless-offline": "^6.8.0",
+    "serverless-webpack": "^5.2.0",
+    "ts-jest": "^26.4.4",
+    "ts-loader": "^8.0.10",
+    "ts-node": "^9.0.0",
+    "tsconfig-paths-webpack-plugin": "^3.3.0",
+    "typescript": "^4.0.5",
+    "webpack": "^5.4.0",
+    "webpack-node-externals": "^2.5.2"
+  },
+  "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
+  "license": "MIT"
+}

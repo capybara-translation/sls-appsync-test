@@ -1,0 +1,57 @@
+Resources:
+  CognitoUserPool:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html
+    Type: AWS::Cognito::UserPool
+    Properties:
+      AccountRecoverySetting:
+        RecoveryMechanisms:
+          - Name: verified_email
+            Priority: 1
+      AutoVerifiedAttributes:
+        - email
+      AliasAttributes:
+        - email
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: true
+        InviteMessageTemplate:
+          EmailSubject: Your temporary password for appsync-test
+          EmailMessage: Hello from appsync-test<br>
+            Your username is {username} and temporary password is {####}.<br>
+            Please visit <a href="https://www.example.com">our website</a>.
+      MfaConfiguration: "OFF"
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8
+          RequireLowercase: true
+          RequireNumbers: true
+          RequireSymbols: true
+          RequireUppercase: true
+      UserPoolName: appsync-test-user-pool-${self:provider.stage}
+      VerificationMessageTemplate:
+        EmailSubject: "Your verification code for appsync-test"
+        EmailMessage: "Hello from appsync-test<br>Your verification code is {####}."
+      Schema:
+        - Name: email
+          Required: true
+          Mutable: true
+
+  CognitoUserPoolClient:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ClientName: appsync-test-user-pool-client-${self:provider.stage}
+      ExplicitAuthFlows:
+        - ALLOW_ADMIN_USER_PASSWORD_AUTH
+        - ALLOW_REFRESH_TOKEN_AUTH
+        - ALLOW_CUSTOM_AUTH
+        - ALLOW_USER_SRP_AUTH
+      PreventUserExistenceErrors: ENABLED
+      GenerateSecret: false
+      UserPoolId:
+        Ref: CognitoUserPool
+
+Outputs:
+  UserPoolArn:
+    Value: !GetAtt CognitoUserPool.Arn
+  UserPoolId:
+    Value: !Ref CognitoUserPool
