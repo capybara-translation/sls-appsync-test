@@ -1,3 +1,28 @@
+```
+# install npm dependencies
+yarn
+
+
+# deploy
+## 1. deploy cognito service
+cd stack-cognito/
+sls deploy
+
+## 2. deploy main service
+cd ..
+sls deploy
+
+
+# install dynamodb locally
+yarn sls:setup
+
+# start serverless locally
+yarn start
+
+# test
+yarn test
+```
+
 # Serverless - AWS Node.js Typescript
 
 This project has been generated using the `aws-nodejs-typescript` template from the [Serverless framework](https://www.serverless.com/).
